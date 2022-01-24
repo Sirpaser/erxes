@@ -76,11 +76,18 @@ async function tryToDisconnect() {
   } catch (e) {
     console.error(e)
   }
+
+  try {
+    await disconnect();
+  } catch (e) {
+    console.error(e);
+  }
 }
 
-httpServer.on("close", async () => {
+
+process.on("SIGINT", async function () {
   await tryToDisconnect();
-});
+})
 
 const apolloServer = new ApolloServer({
   schema: buildSubgraphSchema([

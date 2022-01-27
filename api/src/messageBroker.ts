@@ -316,6 +316,10 @@ export const initBroker = async (server?) => {
       customer => Customers.getCustomerName(customer)
     );
 
+    consumeRPCQueue('rpc_queue:Fields.find', query =>
+      Fields.find(query).lean()
+    );
+
     // graphql subscriptions call =========
     consumeQueue('callPublish', params => {
       graphqlPubsub.publish(params.name, params.data);

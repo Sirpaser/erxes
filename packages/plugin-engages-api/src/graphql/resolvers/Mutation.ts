@@ -11,6 +11,7 @@ import { EngageMessages } from '../../models';
 import { Customers, Users } from '../../apiCollections';
 import { checkCampaignDoc, send } from '../../engageUtils';
 import EditorAttributeUtil from '../../editorAttributeUtils';
+import { client as msgBrokerClient } from '../../messageBroker';
 import messageBroker from '../../messageBroker';
 import { gatherDescriptions } from './logHelper';
 import { updateConfigs, createTransporter } from '../../utils';
@@ -243,7 +244,7 @@ const engageMutations = {
     const customer = await Customers.findOne({ primaryEmail: to });
     const targetUser = await Users.findOne({ email: to });
 
-    const replacedContent = await new EditorAttributeUtil().replaceAttributes({
+    const replacedContent = await new EditorAttributeUtil(msgBrokerClient).replaceAttributes({
       content,
       customer,
       user: targetUser,

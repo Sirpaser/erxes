@@ -2,7 +2,7 @@ import { debugBase } from './debuggers';
 import { Logs } from './models';
 import { sendBulkSms, start } from './sender';
 
-let client;
+export let client;
 
 export const initBroker = async cl => {
   client = cl;
@@ -72,40 +72,10 @@ export const saveRPCconformity = async (
   );
 };
 
-export const fieldsCombinedByContentType = async (
-  contentType
-): Promise<any> => {
-  return client.sendRPCMessage(
-    'rpc_queue:editorAttributeUtils_fieldsCombinedByContentType_to_api',
-    contentType
-  );
-};
-
-export const generateAmounts = productsData => {
-  return client.sendRPCMessage(
-    'rpc_queue:editorAttributeUtils_generateAmounts_to_api',
-    productsData
-  );
-};
-
-export const generateProducts = async (productsData): Promise<any> => {
-  return client.sendRPCMessage(
-    'rpc_queue:editorAttributeUtils_generateProducts_to_api',
-    productsData
-  );
-};
-
 export const getSubServiceDomain = name => {
   return client.sendRPCMessage(
     'rpc_queue:editorAttributeUtils_getSubServiceDomain_to_api',
     name
-  );
-};
-
-export const getCustomerName = customer => {
-  return client.sendRPCMessage(
-    'rpc_queue:editorAttributeUtils_getCustomerName_to_api',
-    customer
   );
 };
 

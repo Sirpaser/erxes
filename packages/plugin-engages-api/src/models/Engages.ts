@@ -20,6 +20,8 @@ import {
   IEngageMessageDocument
 } from './definitions/engages';
 import EditorAttributeUtil from '../editorAttributeUtils';
+import { client as msgBrokerClient } from '../messageBroker';
+
 interface ICheckRulesParams {
   rules: IRule[];
   browserInfo: IBrowserInfo;
@@ -332,7 +334,7 @@ export const loadClass = () => {
         // conversations
         if (hasPassedAllRules) {
           // replace keys in content
-          const replacedContent = await new EditorAttributeUtil().replaceAttributes(
+          const replacedContent = await new EditorAttributeUtil(msgBrokerClient).replaceAttributes(
             {
               content: messenger.content,
               customer,

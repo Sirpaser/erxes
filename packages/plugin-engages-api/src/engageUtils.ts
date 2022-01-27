@@ -17,6 +17,7 @@ import messageBroker from './messageBroker';
 import { CAMPAIGN_KINDS, CAMPAIGN_METHODS } from './constants';
 import { isUsingElk } from './utils';
 import EditorAttributeUtil from './editorAttributeUtils';
+import { client as msgBrokerClient } from './messageBroker';
 
 interface IEngageParams {
   engageMessage: IEngageMessageDocument;
@@ -234,7 +235,7 @@ const sendEmailOrSms = async (
   const emailConf = engageMessage.email ? engageMessage.email : { content: '' };
   const emailContent = emailConf.content || '';
 
-  const editorAttributeUtil = new EditorAttributeUtil();
+  const editorAttributeUtil = new EditorAttributeUtil(msgBrokerClient);
   const customerFields = await editorAttributeUtil.getCustomerFields(
     emailContent
   );
